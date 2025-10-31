@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="AutomationSuite">
+    <parameter name="env" value="staging"/>
+    <listeners>
+        <listener class-name="reporting.ExtentReportNg"></listener>
+    </listeners>
+<test name="SampleTest">
+    <parameter name="csvFilePath" value="src/test/resources/Testcases/testdata14.csv"/>
+    <parameter name="pojoClass" value="dto.ItePojo"/>
+    <classes>
+        <class name="apiTest.ITETest"></class>
+    </classes>
+</test>
+</suite>

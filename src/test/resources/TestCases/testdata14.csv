@@ -1,0 +1,2 @@
+testcaseno,type,testcaseid,testdescription,firstname,lastname,totalprice,depositpaid,checkin,checkout,additionalneeds,expectedoutput,excludekeyscomparison,headers
+1,Regression,TC001,Verify API response,JimTest,Brown,111,true,2018-01-01,2019-01-01,Breakfast,SuccessOutput,bookingid,Content-Type:application/json
