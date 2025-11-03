@@ -2,6 +2,7 @@ package apiTest;
 
 import dto.ItePojo;
 import org.testng.annotations.Test;
+import reporting.ExtentReportNg;
 import utils.Constants;
 import utils.DataProvider;
 
@@ -31,7 +32,7 @@ public class ITETest extends BaseIteTest {
     }
 
     @Test(dataProvider = "Onboard", dataProviderClass = DataProvider.class)
-    public void runTestCase(ItePojo data) throws Exception {
+    public void runTestCase(ItePojo data) {
         runTest(data);
     }
 
