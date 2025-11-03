@@ -1,5 +1,6 @@
 package apiTest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import dto.ItePojo;
 import org.testng.annotations.Test;
 import reporting.ExtentReportNg;
@@ -32,7 +33,7 @@ public class ITETest extends BaseIteTest {
     }
 
     @Test(dataProvider = "Onboard", dataProviderClass = DataProvider.class)
-    public void runTestCase(ItePojo data) {
+    public void runTestCase(ItePojo data) throws JsonProcessingException {
         runTest(data);
     }
 
