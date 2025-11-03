@@ -70,6 +70,7 @@ public abstract class BaseIteTest<T extends dto.BaseItePojo> {
     
     public void compareJson(JsonNode expected, JsonNode actual, String path){
 
+        System.out.println("");
 
 
     }
