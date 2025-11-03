@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ExtentReportNg implements IReporter {
 
     private ExtentReports extent;
-    private static final Logger logger = LogManager.getLogger(ExtentReportNg.class);
+  //  private static final Logger logger = LogManager.getLogger(ExtentReportNg.class);
     private static ThreadLocal<ExtentTest> extentTest = new ThreadLocal<>();
     private static final Map<String, String> hMap = new ConcurrentHashMap<>();
 
@@ -85,12 +85,12 @@ public class ExtentReportNg implements IReporter {
         if (tests.size() > 0) {
             for (ITestResult result : tests.getAllResults()) {
                 ExtentTest test = extent.createTest(result.getMethod().getMethodName());
-                logger.info("Test Created------" + result.getTestClass().getRealClass());
+              //  logger.info("Test Created------" + result.getTestClass().getRealClass());
                 String key = makeKeyFromResult(result); // use same key builder
 
                 if (hMap.containsKey(key)) {
                     // log the stored value (e.g. the URL), not the key
-                    test.info(hMap.get(key));
+                    test.pass(hMap.get(key));
                 }
 
                 switch (status) {
@@ -106,22 +106,11 @@ public class ExtentReportNg implements IReporter {
     public static void log(String log){
         ITestResult current = Reporter.getCurrentTestResult();
         if (current == null) {
-            logger.warn("No current TestResult available to log: " + log);
+          //  logger.warn("No current TestResult available to log: " + log);
             return;
         }
-        String key;
-        try {
-            key = makeKeyFromResult(current);
-        } catch (Exception e) {
-            // fallback: build a simpler key to avoid failing silently
-            String pkg = current.getTestClass().getRealClass().getPackage().getName();
-            String cls = current.getTestClass().getRealClass().getSimpleName();
-            String method = (current.getMethod() != null) ? current.getMethod().getMethodName() : current.getName();
-            Object iter = current.getAttribute("iteration");
-            String iteration = (iter != null) ? iter.toString() : "N/A";
-            key = pkg + cls + method + iteration;
-        }
-        hMap.put(key, log);
+        String key = makeKeyFromResult(current);
+        hMap.merge(key, log, (oldVal, newVal) -> oldVal + "<br>" + newVal);
     }
 
     private static String makeKeyFromResult(ITestResult result) {
